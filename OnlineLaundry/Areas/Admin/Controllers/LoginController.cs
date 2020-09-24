@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace VoKhoiNamHai_Web_SaleDb.Areas.Admin.Controllers
+namespace OnlineLaundry.Areas.Admin.Controllers
 {
     public class LoginController : Controller
     {
@@ -12,6 +12,7 @@ namespace VoKhoiNamHai_Web_SaleDb.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View();
+            
         }
     }
 }

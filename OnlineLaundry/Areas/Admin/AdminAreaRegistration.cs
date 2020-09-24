@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace VoKhoiNamHai_Web_SaleDb.Areas.Admin
+namespace OnlineLaundry.Areas.Admin
 {
     public class AdminAreaRegistration : AreaRegistration 
     {

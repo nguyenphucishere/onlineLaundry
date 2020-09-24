@@ -1,0 +1,948 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OnlineLaundryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="is_subbed" Type="tinyint" />
+          <Property Name="last_changed" Type="date" />
+        </EntityType>
+        <EntityType Name="customer_subscription">
+          <Key>
+            <PropertyRef Name="customer_subscription_id" />
+          </Key>
+          <Property Name="customer_subscription_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_id" Type="int" Nullable="false" />
+          <Property Name="subscription_id" Type="int" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_id" Type="int" Nullable="false" />
+          <Property Name="staff_id" Type="int" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="deliver_date" Type="date" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="shipping" Type="tinyint" />
+          <Property Name="total_price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="total_pieces" Type="int" />
+          <Property Name="last_changed" Type="date" />
+        </EntityType>
+        <EntityType Name="order_detail">
+          <Key>
+            <PropertyRef Name="order_detail_id" />
+          </Key>
+          <Property Name="order_detail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="service_id" Type="int" Nullable="false" />
+          <Property Name="pieces_id" Type="int" />
+          <Property Name="weight_id" Type="int" />
+          <Property Name="subscription_id" Type="int" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="unit" Type="nvarchar" MaxLength="50" />
+          <Property Name="quantity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="comment" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="payroll">
+          <Key>
+            <PropertyRef Name="payroll_id" />
+          </Key>
+          <Property Name="payroll_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="staff_id" Type="int" Nullable="false" />
+          <Property Name="basic_salary" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="working_days" Type="int" Nullable="false" />
+          <Property Name="allowance" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="total_salary" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="pay_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="service_id" />
+          </Key>
+          <Property Name="service_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="last_changed" Type="date" />
+        </EntityType>
+        <EntityType Name="service_pieces">
+          <Key>
+            <PropertyRef Name="pieces_id" />
+          </Key>
+          <Property Name="pieces_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="image" Type="varchar" MaxLength="250" />
+          <Property Name="service_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="service_subscription">
+          <Key>
+            <PropertyRef Name="subscription_id" />
+          </Key>
+          <Property Name="subscription_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="250" />
+          <Property Name="service_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="service_weight">
+          <Key>
+            <PropertyRef Name="weight_id" />
+          </Key>
+          <Property Name="weight_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="capacity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="250" />
+          <Property Name="service_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="staff">
+          <Key>
+            <PropertyRef Name="staff_id" />
+          </Key>
+          <Property Name="staff_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="address" Type="varchar" MaxLength="250" />
+          <Property Name="username" Type="varchar" MaxLength="100" />
+          <Property Name="password" Type="varchar" MaxLength="250" />
+          <Property Name="birthday" Type="date" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_changed" Type="date" />
+        </EntityType>
+        <EntityType Name="working_report">
+          <Key>
+            <PropertyRef Name="working_report_id" />
+          </Key>
+          <Property Name="working_report_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="staff_id" Type="int" Nullable="false" />
+          <Property Name="current_workday" Type="date" Nullable="false" />
+          <Property Name="presence" Type="tinyint" Nullable="false" />
+          <Property Name="approval" Type="varchar" MaxLength="250" />
+          <Property Name="last_changed" Type="date" />
+        </EntityType>
+        <Association Name="FK_customer_subscription_customer">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="customer_subscription" Type="Self.customer_subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="customer_subscription">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_customer_subscription_service_subscription">
+          <End Role="service_subscription" Type="Self.service_subscription" Multiplicity="1" />
+          <End Role="customer_subscription" Type="Self.customer_subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_subscription">
+              <PropertyRef Name="subscription_id" />
+            </Principal>
+            <Dependent Role="customer_subscription">
+              <PropertyRef Name="subscription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_customer">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_service_pieces">
+          <End Role="service_pieces" Type="Self.service_pieces" Multiplicity="0..1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_pieces">
+              <PropertyRef Name="pieces_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="pieces_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_service_subscription">
+          <End Role="service_subscription" Type="Self.service_subscription" Multiplicity="0..1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_subscription">
+              <PropertyRef Name="subscription_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="subscription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_service_weight">
+          <End Role="service_weight" Type="Self.service_weight" Multiplicity="0..1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_weight">
+              <PropertyRef Name="weight_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="weight_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_staff">
+          <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="staff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payroll_staff">
+          <End Role="staff" Type="Self.staff" Multiplicity="1" />
+          <End Role="payroll" Type="Self.payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="payroll">
+              <PropertyRef Name="staff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_service_pieces_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="service_pieces" Type="Self.service_pieces" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_id" />
+            </Principal>
+            <Dependent Role="service_pieces">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_service_subscription_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="service_subscription" Type="Self.service_subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_id" />
+            </Principal>
+            <Dependent Role="service_subscription">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_service_weight_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="service_weight" Type="Self.service_weight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_id" />
+            </Principal>
+            <Dependent Role="service_weight">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_working_report_staff">
+          <End Role="staff" Type="Self.staff" Multiplicity="1" />
+          <End Role="working_report" Type="Self.working_report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="working_report">
+              <PropertyRef Name="staff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlineLaundryModelStoreContainer">
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer_subscription" EntityType="Self.customer_subscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_detail" EntityType="Self.order_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payroll" EntityType="Self.payroll" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="service_pieces" EntityType="Self.service_pieces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="service_subscription" EntityType="Self.service_subscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="service_weight" EntityType="Self.service_weight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="working_report" EntityType="Self.working_report" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_customer_subscription_customer" Association="Self.FK_customer_subscription_customer">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="customer_subscription" EntitySet="customer_subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_customer_subscription_service_subscription" Association="Self.FK_customer_subscription_service_subscription">
+            <End Role="service_subscription" EntitySet="service_subscription" />
+            <End Role="customer_subscription" EntitySet="customer_subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_customer" Association="Self.FK_order_customer">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_order" Association="Self.FK_order_detail_order">
+            <End Role="order" EntitySet="order" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_service" Association="Self.FK_order_detail_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_service_pieces" Association="Self.FK_order_detail_service_pieces">
+            <End Role="service_pieces" EntitySet="service_pieces" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_service_subscription" Association="Self.FK_order_detail_service_subscription">
+            <End Role="service_subscription" EntitySet="service_subscription" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_service_weight" Association="Self.FK_order_detail_service_weight">
+            <End Role="service_weight" EntitySet="service_weight" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_staff" Association="Self.FK_order_staff">
+            <End Role="staff" EntitySet="staff" />
+            <End Role="order" EntitySet="order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payroll_staff" Association="Self.FK_payroll_staff">
+            <End Role="staff" EntitySet="staff" />
+            <End Role="payroll" EntitySet="payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_service_pieces_service" Association="Self.FK_service_pieces_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="service_pieces" EntitySet="service_pieces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_service_subscription_service" Association="Self.FK_service_subscription_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="service_subscription" EntitySet="service_subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_service_weight_service" Association="Self.FK_service_weight_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="service_weight" EntitySet="service_weight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_working_report_staff" Association="Self.FK_working_report_staff">
+            <End Role="staff" EntitySet="staff" />
+            <End Role="working_report" EntitySet="working_report" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlineLaundryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="is_subbed" Type="Byte" />
+          <Property Name="last_changed" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="customer_subscription" Relationship="Self.FK_customer_subscription_customer" FromRole="customer" ToRole="customer_subscription" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_order_customer" FromRole="customer" ToRole="order" />
+        </EntityType>
+        <EntityType Name="customer_subscription">
+          <Key>
+            <PropertyRef Name="customer_subscription_id" />
+          </Key>
+          <Property Name="customer_subscription_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_id" Type="Int32" Nullable="false" />
+          <Property Name="subscription_id" Type="Int32" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="customer" Relationship="Self.FK_customer_subscription_customer" FromRole="customer_subscription" ToRole="customer" />
+          <NavigationProperty Name="service_subscription" Relationship="Self.FK_customer_subscription_service_subscription" FromRole="customer_subscription" ToRole="service_subscription" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_id" Type="Int32" Nullable="false" />
+          <Property Name="staff_id" Type="Int32" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="deliver_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shipping" Type="Byte" />
+          <Property Name="total_price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="total_pieces" Type="Int32" />
+          <Property Name="last_changed" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="customer" Relationship="Self.FK_order_customer" FromRole="order" ToRole="customer" />
+          <NavigationProperty Name="order_detail" Relationship="Self.FK_order_detail_order" FromRole="order" ToRole="order_detail" />
+          <NavigationProperty Name="staff" Relationship="Self.FK_order_staff" FromRole="order" ToRole="staff" />
+        </EntityType>
+        <EntityType Name="order_detail">
+          <Key>
+            <PropertyRef Name="order_detail_id" />
+          </Key>
+          <Property Name="order_detail_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="service_id" Type="Int32" Nullable="false" />
+          <Property Name="pieces_id" Type="Int32" />
+          <Property Name="weight_id" Type="Int32" />
+          <Property Name="subscription_id" Type="Int32" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quantity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="order" Relationship="Self.FK_order_detail_order" FromRole="order_detail" ToRole="order" />
+          <NavigationProperty Name="service" Relationship="Self.FK_order_detail_service" FromRole="order_detail" ToRole="service" />
+          <NavigationProperty Name="service_pieces" Relationship="Self.FK_order_detail_service_pieces" FromRole="order_detail" ToRole="service_pieces" />
+          <NavigationProperty Name="service_subscription" Relationship="Self.FK_order_detail_service_subscription" FromRole="order_detail" ToRole="service_subscription" />
+          <NavigationProperty Name="service_weight" Relationship="Self.FK_order_detail_service_weight" FromRole="order_detail" ToRole="service_weight" />
+        </EntityType>
+        <EntityType Name="payroll">
+          <Key>
+            <PropertyRef Name="payroll_id" />
+          </Key>
+          <Property Name="payroll_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="staff_id" Type="Int32" Nullable="false" />
+          <Property Name="basic_salary" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="working_days" Type="Int32" Nullable="false" />
+          <Property Name="allowance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="total_salary" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="pay_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="staff" Relationship="Self.FK_payroll_staff" FromRole="payroll" ToRole="staff" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="service_id" />
+          </Key>
+          <Property Name="service_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_changed" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="order_detail" Relationship="Self.FK_order_detail_service" FromRole="service" ToRole="order_detail" />
+          <NavigationProperty Name="service_pieces" Relationship="Self.FK_service_pieces_service" FromRole="service" ToRole="service_pieces" />
+          <NavigationProperty Name="service_subscription" Relationship="Self.FK_service_subscription_service" FromRole="service" ToRole="service_subscription" />
+          <NavigationProperty Name="service_weight" Relationship="Self.FK_service_weight_service" FromRole="service" ToRole="service_weight" />
+        </EntityType>
+        <EntityType Name="service_pieces">
+          <Key>
+            <PropertyRef Name="pieces_id" />
+          </Key>
+          <Property Name="pieces_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="service_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order_detail" Relationship="Self.FK_order_detail_service_pieces" FromRole="service_pieces" ToRole="order_detail" />
+          <NavigationProperty Name="service" Relationship="Self.FK_service_pieces_service" FromRole="service_pieces" ToRole="service" />
+        </EntityType>
+        <EntityType Name="service_subscription">
+          <Key>
+            <PropertyRef Name="subscription_id" />
+          </Key>
+          <Property Name="subscription_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="service_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="customer_subscription" Relationship="Self.FK_customer_subscription_service_subscription" FromRole="service_subscription" ToRole="customer_subscription" />
+          <NavigationProperty Name="order_detail" Relationship="Self.FK_order_detail_service_subscription" FromRole="service_subscription" ToRole="order_detail" />
+          <NavigationProperty Name="service" Relationship="Self.FK_service_subscription_service" FromRole="service_subscription" ToRole="service" />
+        </EntityType>
+        <EntityType Name="service_weight">
+          <Key>
+            <PropertyRef Name="weight_id" />
+          </Key>
+          <Property Name="weight_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="capacity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="service_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="order_detail" Relationship="Self.FK_order_detail_service_weight" FromRole="service_weight" ToRole="order_detail" />
+          <NavigationProperty Name="service" Relationship="Self.FK_service_weight_service" FromRole="service_weight" ToRole="service" />
+        </EntityType>
+        <EntityType Name="staff">
+          <Key>
+            <PropertyRef Name="staff_id" />
+          </Key>
+          <Property Name="staff_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_changed" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_order_staff" FromRole="staff" ToRole="order" />
+          <NavigationProperty Name="payrolls" Relationship="Self.FK_payroll_staff" FromRole="staff" ToRole="payroll" />
+          <NavigationProperty Name="working_report" Relationship="Self.FK_working_report_staff" FromRole="staff" ToRole="working_report" />
+        </EntityType>
+        <EntityType Name="working_report">
+          <Key>
+            <PropertyRef Name="working_report_id" />
+          </Key>
+          <Property Name="working_report_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="staff_id" Type="Int32" Nullable="false" />
+          <Property Name="current_workday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="presence" Type="Byte" Nullable="false" />
+          <Property Name="approval" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="last_changed" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="staff" Relationship="Self.FK_working_report_staff" FromRole="working_report" ToRole="staff" />
+        </EntityType>
+        <Association Name="FK_customer_subscription_customer">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="customer_subscription" Type="Self.customer_subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="customer_subscription">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_customer">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_customer_subscription_service_subscription">
+          <End Role="service_subscription" Type="Self.service_subscription" Multiplicity="1" />
+          <End Role="customer_subscription" Type="Self.customer_subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_subscription">
+              <PropertyRef Name="subscription_id" />
+            </Principal>
+            <Dependent Role="customer_subscription">
+              <PropertyRef Name="subscription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_order">
+          <End Role="order" Type="Self.order" Multiplicity="1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_staff">
+          <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+          <End Role="order" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="order">
+              <PropertyRef Name="staff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_service_pieces">
+          <End Role="service_pieces" Type="Self.service_pieces" Multiplicity="0..1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_pieces">
+              <PropertyRef Name="pieces_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="pieces_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_service_subscription">
+          <End Role="service_subscription" Type="Self.service_subscription" Multiplicity="0..1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_subscription">
+              <PropertyRef Name="subscription_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="subscription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_order_detail_service_weight">
+          <End Role="service_weight" Type="Self.service_weight" Multiplicity="0..1" />
+          <End Role="order_detail" Type="Self.order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service_weight">
+              <PropertyRef Name="weight_id" />
+            </Principal>
+            <Dependent Role="order_detail">
+              <PropertyRef Name="weight_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_payroll_staff">
+          <End Role="staff" Type="Self.staff" Multiplicity="1" />
+          <End Role="payroll" Type="Self.payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="payroll">
+              <PropertyRef Name="staff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_service_pieces_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="service_pieces" Type="Self.service_pieces" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_id" />
+            </Principal>
+            <Dependent Role="service_pieces">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_service_subscription_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="service_subscription" Type="Self.service_subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_id" />
+            </Principal>
+            <Dependent Role="service_subscription">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_service_weight_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="service_weight" Type="Self.service_weight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="service_id" />
+            </Principal>
+            <Dependent Role="service_weight">
+              <PropertyRef Name="service_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_working_report_staff">
+          <End Role="staff" Type="Self.staff" Multiplicity="1" />
+          <End Role="working_report" Type="Self.working_report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="working_report">
+              <PropertyRef Name="staff_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlineLaundryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="customer_subscription" EntityType="Self.customer_subscription" />
+          <EntitySet Name="orders" EntityType="Self.order" />
+          <EntitySet Name="order_detail" EntityType="Self.order_detail" />
+          <EntitySet Name="payrolls" EntityType="Self.payroll" />
+          <EntitySet Name="services" EntityType="Self.service" />
+          <EntitySet Name="service_pieces" EntityType="Self.service_pieces" />
+          <EntitySet Name="service_subscription" EntityType="Self.service_subscription" />
+          <EntitySet Name="service_weight" EntityType="Self.service_weight" />
+          <EntitySet Name="staffs" EntityType="Self.staff" />
+          <EntitySet Name="working_report" EntityType="Self.working_report" />
+          <AssociationSet Name="FK_customer_subscription_customer" Association="Self.FK_customer_subscription_customer">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="customer_subscription" EntitySet="customer_subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_customer" Association="Self.FK_order_customer">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_customer_subscription_service_subscription" Association="Self.FK_customer_subscription_service_subscription">
+            <End Role="service_subscription" EntitySet="service_subscription" />
+            <End Role="customer_subscription" EntitySet="customer_subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_order" Association="Self.FK_order_detail_order">
+            <End Role="order" EntitySet="orders" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_staff" Association="Self.FK_order_staff">
+            <End Role="staff" EntitySet="staffs" />
+            <End Role="order" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_service" Association="Self.FK_order_detail_service">
+            <End Role="service" EntitySet="services" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_service_pieces" Association="Self.FK_order_detail_service_pieces">
+            <End Role="service_pieces" EntitySet="service_pieces" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_service_subscription" Association="Self.FK_order_detail_service_subscription">
+            <End Role="service_subscription" EntitySet="service_subscription" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_order_detail_service_weight" Association="Self.FK_order_detail_service_weight">
+            <End Role="service_weight" EntitySet="service_weight" />
+            <End Role="order_detail" EntitySet="order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_payroll_staff" Association="Self.FK_payroll_staff">
+            <End Role="staff" EntitySet="staffs" />
+            <End Role="payroll" EntitySet="payrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_service_pieces_service" Association="Self.FK_service_pieces_service">
+            <End Role="service" EntitySet="services" />
+            <End Role="service_pieces" EntitySet="service_pieces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_service_subscription_service" Association="Self.FK_service_subscription_service">
+            <End Role="service" EntitySet="services" />
+            <End Role="service_subscription" EntitySet="service_subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_service_weight_service" Association="Self.FK_service_weight_service">
+            <End Role="service" EntitySet="services" />
+            <End Role="service_weight" EntitySet="service_weight" />
+          </AssociationSet>
+          <AssociationSet Name="FK_working_report_staff" Association="Self.FK_working_report_staff">
+            <End Role="staff" EntitySet="staffs" />
+            <End Role="working_report" EntitySet="working_report" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnlineLaundryModelStoreContainer" CdmEntityContainer="OnlineLaundryEntities">
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="is_subbed" ColumnName="is_subbed" />
+                <ScalarProperty Name="last_changed" ColumnName="last_changed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customer_subscription">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.customer_subscription">
+              <MappingFragment StoreEntitySet="customer_subscription">
+                <ScalarProperty Name="customer_subscription_id" ColumnName="customer_subscription_id" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.order">
+              <MappingFragment StoreEntitySet="order">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="deliver_date" ColumnName="deliver_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="shipping" ColumnName="shipping" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="total_pieces" ColumnName="total_pieces" />
+                <ScalarProperty Name="last_changed" ColumnName="last_changed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_detail">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.order_detail">
+              <MappingFragment StoreEntitySet="order_detail">
+                <ScalarProperty Name="order_detail_id" ColumnName="order_detail_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="service_id" ColumnName="service_id" />
+                <ScalarProperty Name="pieces_id" ColumnName="pieces_id" />
+                <ScalarProperty Name="weight_id" ColumnName="weight_id" />
+                <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payrolls">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.payroll">
+              <MappingFragment StoreEntitySet="payroll">
+                <ScalarProperty Name="payroll_id" ColumnName="payroll_id" />
+                <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+                <ScalarProperty Name="basic_salary" ColumnName="basic_salary" />
+                <ScalarProperty Name="working_days" ColumnName="working_days" />
+                <ScalarProperty Name="allowance" ColumnName="allowance" />
+                <ScalarProperty Name="total_salary" ColumnName="total_salary" />
+                <ScalarProperty Name="pay_date" ColumnName="pay_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="services">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.service">
+              <MappingFragment StoreEntitySet="service">
+                <ScalarProperty Name="service_id" ColumnName="service_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="last_changed" ColumnName="last_changed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="service_pieces">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.service_pieces">
+              <MappingFragment StoreEntitySet="service_pieces">
+                <ScalarProperty Name="pieces_id" ColumnName="pieces_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="service_id" ColumnName="service_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="service_subscription">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.service_subscription">
+              <MappingFragment StoreEntitySet="service_subscription">
+                <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="service_id" ColumnName="service_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="service_weight">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.service_weight">
+              <MappingFragment StoreEntitySet="service_weight">
+                <ScalarProperty Name="weight_id" ColumnName="weight_id" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="service_id" ColumnName="service_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="staffs">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.staff">
+              <MappingFragment StoreEntitySet="staff">
+                <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="last_changed" ColumnName="last_changed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="working_report">
+            <EntityTypeMapping TypeName="OnlineLaundryModel.working_report">
+              <MappingFragment StoreEntitySet="working_report">
+                <ScalarProperty Name="working_report_id" ColumnName="working_report_id" />
+                <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+                <ScalarProperty Name="current_workday" ColumnName="current_workday" />
+                <ScalarProperty Name="presence" ColumnName="presence" />
+                <ScalarProperty Name="approval" ColumnName="approval" />
+                <ScalarProperty Name="last_changed" ColumnName="last_changed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
