@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace OnlineLaundry.Areas.Admin.Controllers {
-    public class DashboardController : Controller {
+    public class DashboardController : LoginRequiredController {
         // GET: Admin/Home
 
         public ActionResult Index() {

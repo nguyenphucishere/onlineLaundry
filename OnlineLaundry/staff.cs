@@ -11,7 +11,8 @@ namespace OnlineLaundry
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class staff
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,7 +28,11 @@ namespace OnlineLaundry
         public string phone { get; set; }
         public string email { get; set; }
         public string address { get; set; }
+
+        [Required]
         public string username { get; set; }
+
+        [Required]
         public string password { get; set; }
         public Nullable<System.DateTime> birthday { get; set; }
         public System.DateTime start_date { get; set; }
