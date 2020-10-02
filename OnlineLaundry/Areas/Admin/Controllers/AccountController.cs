@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.Services.Protocols;
 
 namespace OnlineLaundry.Areas.Admin.Controllers
@@ -17,38 +18,38 @@ namespace OnlineLaundry.Areas.Admin.Controllers
         }
 
         [HttpPost()]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Login(string username, string password)
         {
-            int staffID = isAuthenticate(username, password);
-            if (staffID <= 0)
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Admin");
+            }
+            if(!isAuthenticate(username, password))
             {
                 ModelState.AddModelError("", "Incorrect email or password, please try again");
                 return View("Login");
             }
 
-            Session[KeyStorage.LOGIN_SESSION_KEY] = staffID;
+            FormsAuthentication.SetAuthCookie(username, false);
             return Redirect("/Admin");
         }
-        private int isAuthenticate(string username, string password)
+        private bool isAuthenticate(string username, string password)
         {
             staff findStaff = onlineLaundryEntities.staffs.Where(staffInfo => staffInfo.username == username && staffInfo.password == password).FirstOrDefault();
 
-            return findStaff == null ? 0 : findStaff.staff_id;
+            return findStaff != null;
         }
 
         public ActionResult LogOut()
         {
-            Session.Clear();
-            return Redirect("/");
-        }
-
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if (Session[KeyStorage.LOGIN_SESSION_KEY] != null)
+            if (!User.Identity.IsAuthenticated)
             {
-                filterContext.Result = Redirect("/Admin");
+                return Redirect("/Admin/Login");
             }
-            base.OnActionExecuting(filterContext);
+            FormsAuthentication.SignOut();
+            return Redirect("/");
         }
     }
 }

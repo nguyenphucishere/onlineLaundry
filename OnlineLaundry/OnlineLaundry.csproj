@@ -133,7 +133,6 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LoginRequiredController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="customer.cs">
       <DependentUpon>OnlineLaundry.tt</DependentUpon>
@@ -145,6 +144,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="KeyStorage.cs" />
+    <Compile Include="Models\UserRoleProvider.cs" />
     <Compile Include="OnlineLaundry.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2304,7 +2304,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\LoginRequired\" />
     <Folder Include="Content\admin\js\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
