@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <h1>Dry Cleaning</h1>
+    <div class="row">
+        <div class="col">
+            <img src="~/Content/img/gallery/drycleanjpg.jpg" alt="Alternate Text" width="100%" />
+        </div>
+        <div class="col">
+            <p>Our dry cleaning service combines classic craftsmanship with innovative, 100% toxin-free technologies. Ordinary dry cleaners use harsh chemicals such as perchlorethylene or siloxane and high levels of heat to dry clean your clothes. Our award-winning dry cleaning and stain removal experts use toxin-free solvents and detergents.</p>
+
+            <p>The use of toxin-free detergents enables us to return your clothes cleaner and without the chemical smell. Also, your clothes are finished without the fading, shrinking, pilling or stain-setting common to all other dry cleaning methods.</p>
+        </div>
+    </div>
+    <div class="row mt-3 mb-5">
+        @if (User.Identity.Name == "") {
+            @Html.ActionLink("Sign in first to See Details", "Signin", "customers", null, new { @class = "btn btn-primary" })
+        } else {
+            @Html.ActionLink("See Details", "PieceServiceDetail", "Service", null, new { @class = "btn btn-primary" })
+        }
+    </div>
+    <br />
+    <h1 class="mt-5">Wet Cleaning</h1>
+    <div class="row">
+        <div class="col">
+            <p>Ever shrunk your favorite sweater or watched an all white load of laundry turn pink because of one stray red sock? If so, you know what the combination of water and heat can do to certain fabrics.</p>
+
+            <p>Our professional wet cleaning uses state-of-the-art technology to determine the precise balance of water and heat needed to clean difficult stains from your clothes while maintaining the same perfect fit and bright color that you expect.</p>
+        </div>
+        <div class="col">
+            <img src="~/Content/img/gallery/wetclean.jpg" alt="Alternate Text" />
+        </div>
+    </div>
+    <div class="row mb-5">
+        @if (User.Identity.Name == "") {
+            @Html.ActionLink("Sign in first to See Details", "Signin", "customers", null, new { @class = "btn btn-primary" })
+        } else {
+            @Html.ActionLink("See Details", "WeightServiceDetail", "Service", null, new { @class = "btn btn-primary" })
+        }
+    </div>
+    <br />
+    <section class="wantToWork-area mt-5" data-background="../Content/img/gallery/section_bg01.png" style="background-image: url(&quot;../Content/img/gallery/section_bg01.png&quot;);">
+        <div class="wants-wrapper w-padding2">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-xl-8 col-lg-9 col-md-7">
+                    <div class="wantToWork-caption wantToWork-caption2">
+                        <h2>Monthly Subscription</h2>
+                        <p>We deliver the goods to the most complicated places on earth</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-5">
+                    <a href="@Url.Action("Subscription", "Service")" class="btn wantToWork-btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

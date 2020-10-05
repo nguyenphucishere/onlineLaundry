@@ -1,0 +1,89 @@
+﻿@model IEnumerable<OnlineLaundry.Models.ViewModel.CartModel>
+
+@{
+    ViewBag.Title = "Your Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <h2 class="my-5">Your Cart</h2>
+
+    @using (Html.BeginForm("ProcessOrder", "Order", FormMethod.Post)) {
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    No.
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Total_Piece)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th></th>
+            </tr>
+            @{int counter = 1; }
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @counter
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total_Piece)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                    <td>
+                        @if (item.UseSub) {
+                            <span>Subbed</span>
+                        }
+                        @if (!item.UseSub) {
+                            @Html.DisplayFor(modelItem => item.Price)
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "DeleteCart", "Cart", new { id = counter - 1 }, new { @class = "text-primary", @onclick = "return confirm('Do you want to delete this item ?')" })
+                    </td>
+                </tr>
+                counter++;
+            }
+        </table>
+        <hr />
+        <div class="my-5" style="max-width:600px">
+            <div class="row ml-1">
+                @Html.CheckBox("shipping", false, new { @id = "shipping" })
+                <label for="shipping" class="ml-3">Shipping</label>
+            </div>
+            <div class="row">
+                <div class="form-check mb-5 mt-3">
+                    <div class="mb-3">Delivering Date</div>
+                    <input type="date" name="deliver_date" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.ActionLink("Back to Services", "Index", "Service", null, new { @class = "btn - btn-primary" })
+                </div>
+                <div class="col">
+                    <input type="submit" value="Proceed Order" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+</div>

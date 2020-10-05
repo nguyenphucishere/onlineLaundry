@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.0.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.0.0\lib\net472\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -55,8 +58,21 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -133,61 +149,80 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="customer.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
-    <Compile Include="customer_subscription.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Filter\BasicAuthFilter.cs" />
+    <Compile Include="Filter\MyPrinciple.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="KeyStorage.cs" />
+    <Compile Include="Models\customer.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\customer_confirmation.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\customer_subscription.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enums\OrderDetailUnits.cs" />
+    <Compile Include="Models\Enums\OrderStatus.cs" />
+    <Compile Include="Models\OnlineLaundryModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineLaundryModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OnlineLaundryModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OnlineLaundryModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineLaundryModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\order.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\order_detail.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\payroll.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\service.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\service_pieces.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\service_subscription.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\service_weight.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\staff.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserRoleProvider.cs" />
-    <Compile Include="OnlineLaundry.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OnlineLaundry.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OnlineLaundry.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OnlineLaundry.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OnlineLaundry.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="order.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
-    <Compile Include="order_detail.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
-    <Compile Include="payroll.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
+    <Compile Include="Models\ViewModel\CartModel.cs" />
+    <Compile Include="Models\ViewModel\CustomerViewModel.cs" />
+    <Compile Include="Models\ViewModel\ServicePieceViewModel.cs" />
+    <Compile Include="Models\ViewModel\ServiceSubsViewModel.cs" />
+    <Compile Include="Models\ViewModel\ServiceWeightViewModel.cs" />
+    <Compile Include="Models\working_report.cs">
+      <DependentUpon>OnlineLaundryModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="service.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
-    <Compile Include="service_pieces.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
-    <Compile Include="service_subscription.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
-    <Compile Include="service_weight.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
-    <Compile Include="staff.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
-    <Compile Include="working_report.cs">
-      <DependentUpon>OnlineLaundry.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Utils\BuildMailTemplate.cs" />
+    <Compile Include="Utils\Hashing.cs" />
+    <Compile Include="Utils\RandomToken.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin\css\login_main.css" />
@@ -203,15 +238,15 @@
     <Content Include="Content\admin\img\icons\map-marker.png" />
     <Content Include="Content\admin\img\icons\symbol-01.png" />
     <Content Include="Content\admin\img\undraw_posting_photo.svg" />
-    <Content Include="OnlineLaundry.Context.tt">
+    <Content Include="Models\OnlineLaundryModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OnlineLaundry.Context.cs</LastGenOutput>
-      <DependentUpon>OnlineLaundry.edmx</DependentUpon>
+      <DependentUpon>OnlineLaundryModels.edmx</DependentUpon>
+      <LastGenOutput>OnlineLaundryModels.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="OnlineLaundry.tt">
+    <Content Include="Models\OnlineLaundryModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OnlineLaundry.edmx</DependentUpon>
-      <LastGenOutput>OnlineLaundry.cs</LastGenOutput>
+      <DependentUpon>OnlineLaundryModels.edmx</DependentUpon>
+      <LastGenOutput>OnlineLaundryModels.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\admin\js\main.js" />
     <Content Include="Content\animate.min.css" />
@@ -459,14 +494,16 @@
     <Content Include="Content\admin\fonts\ubuntu\Ubuntu-Medium.ttf" />
     <Content Include="Content\admin\fonts\ubuntu\Ubuntu-MediumItalic.ttf" />
     <Content Include="Content\admin\fonts\ubuntu\Ubuntu-Regular.ttf" />
-    <EntityDeploy Include="OnlineLaundry.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OnlineLaundry.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="OnlineLaundry.edmx.diagram">
-      <DependentUpon>OnlineLaundry.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="EmailTemplate\OrderTemplate.cshtml" />
+    <Content Include="EmailTemplate\Text.cshtml" />
+    <EntityDeploy Include="Models\OnlineLaundryModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OnlineLaundryModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\OnlineLaundryModels.edmx.diagram">
+      <DependentUpon>OnlineLaundryModels.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -2221,6 +2258,20 @@
     <Content Include="Scripts\vendor\modernizr-3.5.0.min.js" />
     <Content Include="Scripts\waypoints.min.js" />
     <Content Include="Scripts\wow.min.js" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Customers\Confirm.cshtml" />
+    <Content Include="Views\Customers\ErrorNotVerified.cshtml" />
+    <Content Include="Views\Customers\Register.cshtml" />
+    <Content Include="Views\Customers\RegisterSuccess.cshtml" />
+    <Content Include="Views\Customers\Signin.cshtml" />
+    <Content Include="Views\Customers\VerifySuccess.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2228,13 +2279,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -2298,6 +2342,15 @@
     <Content Include="Scripts\vendor\fontawesome-free\webfonts\fa-solid-900.ttf" />
     <Content Include="Scripts\vendor\fontawesome-free\webfonts\fa-solid-900.woff" />
     <Content Include="Scripts\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\Order\ProcessOrder.cshtml" />
+    <Content Include="Views\Order\SubsSuccess.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Service\PieceService.cshtml" />
+    <Content Include="Views\Service\PieceServiceDetail.cshtml" />
+    <Content Include="Views\Service\SubscriptionService.cshtml" />
+    <Content Include="Views\Service\SubscriptionServiceDetail.cshtml" />
+    <Content Include="Views\Service\WeightService.cshtml" />
+    <Content Include="Views\Service\WeightServiceDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

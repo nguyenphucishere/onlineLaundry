@@ -12,13 +12,14 @@ namespace OnlineLaundry.Areas.Admin.Controllers {
         // GET: Admin/Home
         
         public ActionResult Index() {
+            ViewBag.Username = User.Identity.Name;
             return View();
         }
 
         [Authorize(Roles = "MANAGER")]
         public string All()
         {
-            return "all";
+            return User.IsInRole("MANAGER").ToString();
         }
     }
 }

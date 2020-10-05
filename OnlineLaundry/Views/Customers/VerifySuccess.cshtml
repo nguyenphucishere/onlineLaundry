@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "VerifySuccess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 py-5" style="max-width:600px">
+    <h1>Your account has been verified!</h1>
+    <br />
+    @Html.ActionLink("Go back main page", "Index", "Home", null, new { @class = "text-primary" })
+    <br />
+    @Html.ActionLink("Go back to Sign in page", "Signin", "customers", null, new { @class = "text-primary" })
+</div>

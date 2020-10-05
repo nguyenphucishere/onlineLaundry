@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2b7de21e2b9c4cddbd239dc1e2b9d70c" Name="Diagram1" ZoomLevel="87">
+        <EntityTypeShape EntityType="OnlineLaundryModel.customer" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.customer_confirmation" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.customer_subscription" Width="1.5" PointX="8.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.order" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.order_detail" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.payroll" Width="1.5" PointX="3" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.service" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.service_pieces" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.service_subscription" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.service_weight" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.staff" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLaundryModel.working_report" Width="1.5" PointX="3" PointY="21.75" IsExpanded="true" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_customer_confirmation_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_customer_subscription_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_order_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_customer_subscription_service_subscription" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_order_detail_order" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_order_staff" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_order_detail_service" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_order_detail_service_pieces" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_order_detail_service_subscription" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_order_detail_service_weight" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_payroll_staff" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_service_pieces_service" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_service_subscription_service" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_service_weight_service" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLaundryModel.FK_working_report_staff" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

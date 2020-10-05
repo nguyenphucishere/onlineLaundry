@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.Services.Protocols;
+using OnlineLaundry.Models;
 
 namespace OnlineLaundry.Areas.Admin.Controllers
 {
@@ -14,6 +15,10 @@ namespace OnlineLaundry.Areas.Admin.Controllers
 
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Admin");
+            }
             return View();
         }
 

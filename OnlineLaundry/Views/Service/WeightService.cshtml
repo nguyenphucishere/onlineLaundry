@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Wet Cleaning";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5" style="min-height: 50vh">
+    <h2>Wet Cleaning</h2>
+    <div class="row">
+        <div class="col">
+            <img src="~/Content/img/gallery/wetclean.jpg" alt="Alternate Text" />
+        </div>
+        <div class="col">
+            <p>Ever shrunk your favorite sweater or watched an all white load of laundry turn pink because of one stray red sock? If so, you know what the combination of water and heat can do to certain fabrics.</p>
+
+            <p>Our professional wet cleaning uses state-of-the-art technology to determine the precise balance of water and heat needed to clean difficult stains from your clothes while maintaining the same perfect fit and bright color that you expect.</p>
+        </div>
+    </div>
+    <div class="row mt-5">
+        @if (User.Identity.Name == "") {
+            @Html.ActionLink("Sign in first to See Details", "Signin", "customers", null, new { @class = "btn btn-primary" })
+        } else {
+            @Html.ActionLink("See Details", "WeightServiceDetail", "Service", null, new { @class = "btn btn-primary" })
+        }
+    </div>
+</div>

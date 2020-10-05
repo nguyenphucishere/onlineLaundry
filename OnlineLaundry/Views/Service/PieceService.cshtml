@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Dry Cleaning";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5" style="min-height: 50vh">
+    <h2>Dry Cleaning</h2>
+    <div class="row">
+        <div class="col">
+            <img src="~/Content/img/gallery/drycleanjpg.jpg" alt="Alternate Text" width="100%" />
+        </div>
+        <div class="col">
+            <p>Our dry cleaning service combines classic craftsmanship with innovative, 100% toxin-free technologies. Ordinary dry cleaners use harsh chemicals such as perchlorethylene or siloxane and high levels of heat to dry clean your clothes. Our award-winning dry cleaning and stain removal experts use toxin-free solvents and detergents.</p>
+
+            <p>The use of toxin-free detergents enables us to return your clothes cleaner and without the chemical smell. Also, your clothes are finished without the fading, shrinking, pilling or stain-setting common to all other dry cleaning methods.</p>
+        </div>
+    </div>
+    <div class="row mt-5">
+        @if (User.Identity.Name == "") {
+            @Html.ActionLink("Sign in first to See Details", "Signin", "customers", null, new { @class = "btn btn-primary" })
+        } else {
+            @Html.ActionLink("See Details", "PieceServiceDetail", "Service", null, new { @class = "btn btn-primary" })
+        }
+    </div>
+</div>
+

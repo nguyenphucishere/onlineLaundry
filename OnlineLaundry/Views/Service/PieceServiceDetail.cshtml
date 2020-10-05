@@ -1,0 +1,94 @@
+﻿@model OnlineLaundry.Models.ViewModel.ServicePieceViewModel
+
+@{
+    ViewBag.Title = "PieceServiceDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5" style="min-height: 50vh">
+    <div class="row">
+        @using (Html.BeginForm("AddCart", "Cart", FormMethod.Post, new { @style = "width: 100%" })) {
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            No.
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>Your Choice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int count = 1; }
+                    @foreach (var item in Model.Service_Pieces) {
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                <img src="~/Content/img/icon/@item.image" alt="@item.image" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                <input type="radio" name="Cart.Id" value="@item.pieces_id" />
+                            </td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+            <hr />
+            <div style="max-width: 600px">
+                <h3 class="mt-5">More info</h3>
+                @Html.HiddenFor(model => model.Order.customer_id)
+                @Html.Hidden("Cart.service_id", 1)
+                @Html.Hidden("Cart.Amount", 1)
+                @Html.Hidden("Cart.Total_Piece", 1)
+
+                @*<div class="form-check mb-3 mt-5">
+                        @Html.CheckBoxFor(model => model.Cart.Shipping, new { @id = "shipping", @class = "" })
+                        <label for="shipping" class="form-check-label ml-3">Shipping</label>
+                    </div>*@
+                @*<div class="form-check mb-3 mt-5">
+                        <div class="mb-3">Delivering Date</div>
+                        @Html.TextBoxFor(model => model.Cart.Deliver, new { @type = "date", @id = "shipping_date", @class = "form-control" })
+                    </div>*@
+                @*<div class="form-check mt-5">
+                        <div class="mb-3">Total Pieces</div>
+                        @Html.TextBoxFor(model => model.Order.total_pieces, new { @type = "number", @id = "total_pieces", @class = "form-control" })
+                    </div>*@
+                <div class="form-check mt-5">
+                    <div class="mb-3">Comment</div>
+                    <textarea name="Cart.Comment" rows="8" class="form-control"></textarea>
+                </div>
+                <hr />
+                @if (ViewBag.issub) {
+                    <div class="form-check mb-3 mt-5">
+                        @Html.CheckBoxFor(model => model.Cart.UseSub, new { @id = "sub" })
+                        <label for="sub" class="form-check-label ml-3">Use Subscription</label>
+                    </div>
+                } else {
+                    <div class="form-check mb-3 mt-5">
+                        @Html.ActionLink("You are not subscribed! Subscribe to our website", "SubscriptionService", "Service", new { @class = "text-primary" })
+                    </div>
+                }
+                <div class="form-check mt-5">
+                    <input type="submit" value="Proceed" class="btn btn-outline-primary" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

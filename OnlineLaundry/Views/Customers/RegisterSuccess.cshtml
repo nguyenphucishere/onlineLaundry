@@ -1,0 +1,13 @@
+﻿@model OnlineLaundry.Models.customer
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 py-5" style="max-width:600px; min-height: 50vh">
+    <h1>One last step</h1>
+    <p>Please check your mail box to verify your account</p>
+    <br />
+    @Html.ActionLink("Go back to Sign in page", "Signin", "customers", null, new {@class = "text-primary" })
+</div>

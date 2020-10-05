@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "ErrorNotVerified";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5 my-5" style="min-height: 50vh">
+    <h2>Your account is not verified. Please check your mailbox</h2>
+    @Html.ActionLink("Back to Sign In page", "Signin", "customers", null, new {@class = "text-primary" })
+</div>

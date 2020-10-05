@@ -1,0 +1,39 @@
+﻿@model OnlineLaundry.Models.ViewModel.CustomerViewModel
+
+@{
+    ViewBag.Title = "Signin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/customer.css">
+
+<div class="container login-container">
+    <div class="row">
+        <div class="d-none d-sm-flex col login-sidebg">
+            <h1 class="text-white"><strong>LOGIN</strong></h1>
+        </div>
+        <div class="col px-5">
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Customer.username, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Customer.username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Customer.username, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Customer.password, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Customer.password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.Customer.password, "", new { @class = "text-danger" })
+                </div>
+                <input type="hidden" name="url" value="@ViewBag.url" />
+                <div class="form-group">
+                    <input type="submit" value="Sign In" class="btn btn-default" />
+                    @Html.ActionLink("Sign up here", "Register", "customers", null, new { @class = "d-block pt-4" })
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

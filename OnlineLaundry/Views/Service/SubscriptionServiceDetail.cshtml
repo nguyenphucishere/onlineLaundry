@@ -1,0 +1,50 @@
+﻿@model OnlineLaundry.Models.ViewModel.ServiceSubsViewModel
+
+@{
+    ViewBag.Title = "SubscriptionServiceDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <h4>@Model.Service_Subscription.name</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Subscription.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Subscription.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Subscription.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Subscription.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Subscription.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Subscription.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Subscription.service.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Subscription.service.name)
+        </dd>
+    </dl>
+    @using (Html.BeginForm("CustomerSubscribe", "Order", FormMethod.Post)) {
+        @Html.HiddenFor(model => model.Customer_Subscription.subscription_id, new {@value = Model.Service_Subscription.subscription_id })
+        <input type="hidden" name="customer_subscription.customer_id" value="@Model.Customer_Subscription.customer_id" />
+        <input type="submit" value="Subscribe" class="btn d-block btn-primary"/>
+    }
+</div>
